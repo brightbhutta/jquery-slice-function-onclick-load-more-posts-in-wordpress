@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load More Posts</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div id="post-container">
+    <!-- Your initial posts go here -->
+    <div class="post">Post 1</div>
+    <div class="post">Post 2</div>
+    <div class="post">Post 3</div>
+    <div class="post">Post 4</div>
+    <div class="post">Post 5</div>
+    <div class="post">Post 6</div>
+    <div class="post">Post 7</div>
+    <div class="post">Post 8</div>
+    <div class="post">Post 9</div>
+    <div class="post">Post 10</div>
+    <div class="post">Post 11</div>
+    <div class="post">Post 12</div>
+</div>
+<button id="load-more">Load More</button>
+<script>
+jQuery(document).ready(function($) {
+    var postsPerPage = 4;
+    var currentOffset = postsPerPage;
+    var $postContainer = $('#post-container');
+
+    // Initial hide posts beyond the first `postsPerPage`
+    $postContainer.children('.post').slice(postsPerPage).hide();
+
+    $('#load-more').on('click', function() {
+        var $hiddenPosts = $postContainer.children('.post:hidden');
+        var nextOffset = currentOffset + postsPerPage;
+
+        if ($hiddenPosts.length > 0) {
+            $hiddenPosts.slice(0, postsPerPage).fadeIn();
+            currentOffset = nextOffset;
+        } else {
+            $('#load-more').text('No more posts');
+            $('#load-more').prop('disabled', true);
+        }
+    });
+});
+</script>
+</body>
+</html>
